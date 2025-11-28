@@ -15,10 +15,9 @@ export default function Calculator() {
 
   const handleDigit = (digit) => () => append(digit);
   const handleOp = (op) => () => {
-    // prevent adding two operators in a row (simple guard)
+    
     const last = display[display.length - 1];
     if ("+-*/".includes(last)) {
-      // replace last operator with the new one
       setDisplay((d) => d.slice(0, -1) + op);
     } else {
       append(op);
@@ -29,15 +28,13 @@ export default function Calculator() {
 
   const handleEquals = () => {
     try {
-      // eval accepts scientific notation (e.g., "5E3") and normal operators.
-      // NOTE: using eval for educational purposes per lab hint.
-      // trim trailing operator(s) to avoid eval errors
+      
       let expr = display;
       while (expr.length && "+-*/".includes(expr[expr.length - 1])) {
         expr = expr.slice(0, -1);
       }
-      // Evaluate and guard against Infinity / NaN
-      // eslint-disable-next-line no-eval
+      
+      
       const result = eval(expr);
       if (Number.isFinite(result)) setDisplay(String(result));
       else setDisplay("Error");
@@ -47,8 +44,8 @@ export default function Calculator() {
   };
 
   const handleE = () => {
-    // Append 'E' for scientific notation (user can type something like 5E3)
-    // Prevent multiple Es in a row: basic check.
+    
+    
     const last = display[display.length - 1];
     if (last && last !== "E" && !"+-*/".includes(last)) {
       setDisplay((d) => d + "E");
